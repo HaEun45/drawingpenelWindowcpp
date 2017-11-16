@@ -80,8 +80,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="Label.h" />
+    <ClInclude Include="Canvas.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Menubar.h" />
@@ -92,8 +91,7 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Menubar.cpp" />

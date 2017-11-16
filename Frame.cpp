@@ -4,10 +4,9 @@
 #include "iostream"
 #include "string"
 #include "Window.h"
-//#include "Button.h"
-//#include "Label.h"
 #include "Menubar.h"
 #include "Menu.h"
+#include "Canvas.h"
 using namespace std;
 
 Frame::Frame(HWND w):myWnd(w)
@@ -24,9 +23,9 @@ void Frame::setWnd(HWND hWnd) {
 Frame::~Frame()
 {
 	 // *** 모든 윈도을 delete합니다.
-	for (int i = 0; i < numWidget; i++) {
-		delete windows[i];
-	}
+	//for (int i = 0; i < numWidget; i++) {
+		//delete windows[i];
+	//}
 }
 
 void Frame::OnLButtonDown(long wParam, int x, int y)
@@ -37,7 +36,6 @@ void Frame::OnLButtonDown(long wParam, int x, int y)
 	Window *w = find(x, y);
 	if (w) {
 		w->onMouseClick(x, y);
-		
 	}
 	/* 
 	control key나 shift key등에 따라 다르게 하려면
@@ -49,9 +47,9 @@ void Frame::OnLButtonDown(long wParam, int x, int y)
 
 void Frame::OnLButtonUp(long wParam, int x, int y)
 {
-	Window *w = find(x, y);
-	if (!w) {
-		OutputDebugString("Click ");
+	Window *w = find(x, y); //윈도우를 찾아서
+	if (!w) {  //만약 윈도우가 없으면
+		OutputDebugString("Click "); //Click을 출력한다.
 	}
 	/*
 	 * 아래는 선 색깔, 채움 색깔을 결정하는 방법을 알려줍니다.
@@ -138,10 +136,8 @@ void Frame::drawText(std::string str, int x, int y)
 // 모든 윈도들을 다시 그려주는 함수.  수정이 필요할 것이다.
 void Frame::display()
 {
-	// *** 모든 윈도에 대해 display를 실행해줍니다.
-	for (int i = 0; i < numWidget; i++) {
-		windows[i]->display();
-	}
+	// 윈도에 대해 display를 실행해줍니다.
+	m_firstWindow->display();
 }
 
 // 화면이 현재 제대로 안되어 있다고 알리는 함수입니다.
@@ -157,43 +153,25 @@ void Frame::invalidate()
 void Frame::onInitialize()
 {
 	// *** 모든 윈도들을 여기에서 초기화하자.
-	m_menubar = new MenuBar();
-	registerWindow(m_menubar);
-	Menu *fmenu = new Menu("File");
+	m_menubar = new MenuBar(this); //메뉴바에 Frmae 자기자신을 넘기면서 등록해준다.
+	Menu *fmenu = new Menu("File");  //Menu포인터에 File과 Edit을 각각 등록(저장)한다.
 	Menu *emenu = new Menu("Edit");
-	//m_menubar->add(fmenu);
-	//m_menubar->add(emenu);
-	//m_canvas = new Canvas(this);
-	registerWindow(m_menubar);
-	registerWindow(fmenu);
-	registerWindow(emenu);
+	m_menubar->add(fmenu);  //fmenu포인터와 emenu포인터를 add함수를 이용해 등록해준다.
+	m_menubar->add(emenu);
+	m_canvas = new Canvas(this);  //캔버스에 자기자신을 넘기면서 등록해준다.
 
-	//registerWindow(new Window("apple1",100, 20, 80, 30));
-	//registerWindow(new Window("kiwi", 100, 100, 80, 30 ));
-	//registerWindow(new Window("banana", 100, 200, 80, 30 ));
-	//registerWindow(new Button("button", 100, 300, 80, 30));
-	//registerWindow(new Label("label", 100, 400, 80, 30));
 }
 
-
-
+//MenuBar에서 이용할 등록함수
 void Frame::registerWindow(Window * w)
 {
-	 // *** 포인터 배열에 더해주고, 윈도에도 이 Frame 객체의 포인터를 저장해주자.
-	windows[numWidget++] = w;
-	w->setFrame(this);
+	//w->setFrame(this);
+	w->setNext(m_firstWindow);  //다음 포인터에 첫번째 포인터를 연결한다.
+	m_firstWindow = w;   //첫번째 포인터에 윈도우를 저장한다.(초기화)
 }
 
 
 Window * Frame::find(int x, int y) {
 	 // 각 윈도에게 isInside(x, y) 를 물어서 클릭된 객체의 포인터를 돌려주자.
-	 for (int i = 0; i < this->numWidget; i++) {
-	 if (windows[i]->isInside(x, y))
-	 return windows[i];
-	 }
-	 return (Window *)NULL;
+	 return m_firstWindow->isInside(x, y);
 }
-
-
-
-
