@@ -1,10 +1,12 @@
 #pragma once
-#include "iostream"
-#include "Window.h"
-#include "Menubar.h"
+#include <iostream>
+#include "Container.h"
 #include "Canvas.h"
-class Frame
-{
+using namespace std;
+
+class MenuBar;
+class Canvas;
+class Frame :public Container{
 public:
 	Frame(HWND);
 	~Frame();
@@ -37,13 +39,9 @@ public:
 	//void eraseAll();
 	void invalidate();
 	void onInitialize();
-	Window * find(int x, int y);
+	Window* find(int x, int y);
 protected:
-	Window * m_firstWindow;  // 윈도우의 첫번째 포인터 변수 선언
 	MenuBar *m_menubar;     //menubar 포인터 변수 선언
-	Canvas * m_canvas;      //canvas 포인터 변수 선언
-public:
-	void registerWindow(Window * w); //윈도우 등록함수
-
+	Canvas *m_canvas;      //canvas 포인터 변수 선언
 };
 

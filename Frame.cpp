@@ -1,13 +1,9 @@
 #include "stdafx.h"
-#include "Frame.h"
-#include "stdio.h"
-#include "iostream"
 #include "string"
-#include "Window.h"
-#include "Menubar.h"
-#include "Menu.h"
+#include "stdio.h"
+#include "Frame.h"
 #include "Canvas.h"
-using namespace std;
+#include "Menubar.h"
 
 Frame::Frame(HWND w):myWnd(w)
 {
@@ -24,7 +20,7 @@ Frame::~Frame()
 {
 	 // *** 모든 윈도을 delete합니다.
 	//for (int i = 0; i < numWidget; i++) {
-		//delete windows[i];
+		//delete Windows[i];
 	//}
 }
 
@@ -136,8 +132,14 @@ void Frame::drawText(std::string str, int x, int y)
 // 모든 윈도들을 다시 그려주는 함수.  수정이 필요할 것이다.
 void Frame::display()
 {
-	// 윈도에 대해 display를 실행해줍니다.
-	m_firstWindow->display();
+	//display를 실행해줍니다.
+	m_menubar->display(this);
+	m_canvas->display(this);
+	//리스트로 만들어주는 부분
+	list<Window *>::iterator i;
+	for (i = stuff->begin(); i != stuff->end(); i++) {
+		(*i)->display(this);
+	}
 }
 
 // 화면이 현재 제대로 안되어 있다고 알리는 함수입니다.
@@ -153,7 +155,7 @@ void Frame::invalidate()
 void Frame::onInitialize()
 {
 	// *** 모든 윈도들을 여기에서 초기화하자.
-	m_menubar = new MenuBar(this); //메뉴바에 Frmae 자기자신을 넘기면서 등록해준다.
+	m_menubar = new MenuBar(); 
 	Menu *fmenu = new Menu("File");  //Menu포인터에 File과 Edit을 각각 등록(저장)한다.
 	Menu *emenu = new Menu("Edit");
 	m_menubar->add(fmenu);  //fmenu포인터와 emenu포인터를 add함수를 이용해 등록해준다.
@@ -162,16 +164,13 @@ void Frame::onInitialize()
 
 }
 
-//MenuBar에서 이용할 등록함수
-void Frame::registerWindow(Window * w)
-{
-	//w->setFrame(this);
-	w->setNext(m_firstWindow);  //다음 포인터에 첫번째 포인터를 연결한다.
-	m_firstWindow = w;   //첫번째 포인터에 윈도우를 저장한다.(초기화)
-}
-
-
 Window * Frame::find(int x, int y) {
-	 // 각 윈도에게 isInside(x, y) 를 물어서 클릭된 객체의 포인터를 돌려주자.
-	 return m_firstWindow->isInside(x, y);
+	// 각 윈도에게 isInside(x, y) 를 물어서 클릭된 객체의 포인터를 돌려주자.
+	
+	if (m_menubar->isInside(x, y)) {  //메뉴가 존재한다면
+		return m_menubar;  //메뉴바를 반환해준다.
+	}
+	else {  //메뉴가 없으면 캔버스를 반환해준다.
+		return m_canvas;
+	}
 }

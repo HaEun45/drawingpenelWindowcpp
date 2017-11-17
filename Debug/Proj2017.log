@@ -1,13 +1,11 @@
-﻿  Frame.cpp
-  Generating Code...
-  Compiling...
-  Controller.cpp
-c:\users\user\desktop\6_button.cpp_171111\controller.cpp(138): warning C4101: 'hdc': unreferenced local variable
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Window.cpp
+﻿  Window.cpp
   Menubar.cpp
   Menu.cpp
+  Frame.cpp
   Canvas.cpp
-  Proj2017.vcxproj -> C:\Users\user\Desktop\6_Button.cpp_171111\Debug\Proj2017.exe
-  Proj2017.vcxproj -> C:\Users\user\Desktop\6_Button.cpp_171111\Debug\Proj2017.pdb (Full PDB)
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  Controller.cpp
+  Container.cpp
+  Proj2017.vcxproj -> C:\Users\user\Desktop\proj\drawingpenelWindowcpp\Debug\Proj2017.exe
+  Proj2017.vcxproj -> C:\Users\user\Desktop\proj\drawingpenelWindowcpp\Debug\Proj2017.pdb (Full PDB)

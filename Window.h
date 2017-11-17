@@ -1,21 +1,16 @@
 #pragma once
 #include <string>
+#include<iostream>
+#include <list>
 using namespace std;
+
 class Frame;
-class Window {
+class Window{
 public:
-	Window(int x, int y, int sx, int sy); 
-	Window(string s, int x, int y, int sx, int sy);
-	virtual void setFrame(Frame *);
-	virtual void display();
-	void drawContent();
-	virtual void onMouseClick(int x, int y);
-	virtual Window* isInside(int x, int y);
-	virtual void setNext(Window *w);
+	Window(); //Window기본생성자
+	Window(int x, int y, int sx, int sy); //매개변수 있는 생성자
+	virtual void onMouseClick(int x, int y) = 0; //마우스 클릭 가상함수
+	virtual void display(Frame *f)=0; //화면에 나타내주는 가상함수
 protected:
-	int m_x, m_y, m_xsize, m_ysize;
-	string m_text;
-	Frame *m_Frame;
-	Window * m_next; //윈도우 다음 포인터 변수 선언
-private:
+	int m_x, m_y, m_xsize, m_ysize; //각각 x,y좌표와 사이즈들
 };

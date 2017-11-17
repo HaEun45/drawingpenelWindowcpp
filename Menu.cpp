@@ -1,9 +1,12 @@
+//#include<fstream>
 #include "stdafx.h" 
+#include "Menubar.h"
 #include "Menu.h"
 #include "Frame.h"
 
+
 //생성자
-Menu::Menu(string s) : Window(s , 0, 0, area, 80) {
+Menu::Menu(string s) : Container(s , 0, 0, xmenusize, ysize ) {
 	m_text = s; //text를 s에 저장
 }
 
@@ -13,23 +16,20 @@ void Menu::setX(int menux) {
 }
 
 //화면에 출력해 줄 함수
-void Menu::display() {
+void Menu::display(Frame *f) {
 	if (m_menuNext) { //다음 포인터가 있다면
-		m_menuNext->display(); //화면에 출력해준다.
+		m_menuNext->display(f); //화면에 출력해준다.
 	}
-	m_Frame->setPen(RGB(100, 100, 100), 1);
-	m_Frame->rectangle(m_x, m_y, m_xsize, m_ysize);
-	drawContent();
+	f->setPen(RGB(100, 100, 100), 1);
+	f->rectangle(m_x, m_y, m_xsize, m_ysize);
+	drawContent(f);
 }
 
-//클릭한 경우 출력하는 부분
+//메뉴를 클릭한 경우 출력하는 부분
 void Menu::onMouseClick(int x, int y) {
-	if (x >= 0 && x <= 200 && y >= 0 && y <= 100) {
-		OutputDebugString("File Clicked.\n");
-	}
-	else {
-		OutputDebugString("Edit Clicked.\n");
-	}
+	OutputDebugString(m_text.c_str()); // 메뉴안의 내용을 출력한다.
+	OutputDebugString("Clicked.\n");
+	
 }
 
 //다음 포인터 값에 메뉴 포인터를 저장한다.
