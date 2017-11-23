@@ -5,12 +5,12 @@
 
 
 Container::Container():Window() {
-	stuff = new list<Window *>;
+	windowList = new list<Window *>;
 
 }
 
 Container::Container(int x, int y, int sx, int sy) :Window(x,y,sx,sy){
-	//m_x(x), m_y(y), m_xsize(sx), m_ysize(sy), m_text("") 
+
 }
 
 Container::Container(string s, int x, int y, int sx, int sy)
@@ -19,10 +19,10 @@ Container::Container(string s, int x, int y, int sx, int sy)
 	m_text = s;
 }
 
-
+/*
 void Container::drawContent(Frame *f) {
 	f->drawText(m_text, m_x + 5, m_y + 5);
-}
+}*/
 
 void Container::onMouseClick(int x, int y) {
 
@@ -31,8 +31,14 @@ void Container::onMouseClick(int x, int y) {
 
 
 void Container::add(Window *w) {
-	stuff->push_back(w);
+	windowList->push_back(w);
 }
 
 void Container::display(Frame *f) {
+	//리스트로 만들어주는 부분
+	
+	list<Window *>::iterator i;
+	for (i = windowList->begin(); i != windowList->end(); i++) {
+		(*i)->display(f);
+	}
 }

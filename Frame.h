@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Container.h"
 #include "Canvas.h"
+#include <list>
 using namespace std;
 
 class MenuBar;

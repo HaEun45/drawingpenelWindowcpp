@@ -5,49 +5,122 @@
 #include "Frame.h"
 
 
-//생성자
+//메뉴생성자
 Menu::Menu(string s) : Container(s , 0, 0, xmenusize, ysize ) {
 	m_text = s; //text를 s에 저장
+	m_menuitemy = 0;
+	windowList = new list<Window *>;
+	//menuState = true;
+	menuState = false;
 }
+
+
+//메뉴아이템 등록함수
+void Menu::addMenuItem(MenuItem * mi) {
+	m_menuitemy += ysize;
+	mi->setXY(m_x,m_menuitemy); //자신의 m_x를  메뉴아이템에게 준다.
+	windowList->push_back(mi); //메뉴아이템을 넣어준다
+
+}
+
 
 //변화된 x의 값을 저장하는 함수
 void Menu::setX(int menux) {
 	m_x = menux; //바뀐 menux를 m_x에 저장한다(초기화)
 }
 
-//화면에 출력해 줄 함수
-void Menu::display(Frame *f) {
-	if (m_menuNext) { //다음 포인터가 있다면
-		m_menuNext->display(f); //화면에 출력해준다.
+/*
+bool Menu::AreYouMenuClick(int x, int y) {
+	if (m_x <= x && x < m_x + m_xsize && m_y <= y && y < m_y + m_ysize) {
+		//메뉴가 클릭되면
+		menuState = true;  //true를 반환
+		return menuState;
 	}
+	//한 후 다시menuState가 false
+	else {
+		menuState = false; //클릭되지 않으면 false를 반환
+		return menuState;
+	}
+}*/
+
+//메뉴가 눌러지면 true로 바뀌고 다른창은 다false
+//메뉴가 눌러지지 않으면 다 false
+
+//1-3
+//화면에 Menu를 출력해 줄 함수 //Menubar의 display에서 Menu의 display를 호출해준다.
+void Menu::display(Frame *f) {
 	f->setPen(RGB(100, 100, 100), 1);
 	f->rectangle(m_x, m_y, m_xsize, m_ysize);
 	drawContent(f);
+	//callMenuitemDisplay(f);//여기서 불러버리면 누르지 않아도 바로 그려지므로 안된다.
+
+	/*
+	//메뉴아이템을 그려준다
+	if (menuState = true) {
+		list<Window *>::iterator i;
+		for (i = windowList->begin(); i != windowList->end(); i++) {
+			(*i)->display(f);
+		}
+	}
+	else {
+		f->invalidate(); //자동으로 display호출
+	}*/
 }
 
+//4-3
+Window* Menu::find(int x, int y) {
+	list<Window *>::iterator i;
+	for (i = windowList->begin(); i != windowList->end(); i++) {
+		Window * tmp = ((MenuItem*)*i)->isInside(x, y);
+		if (tmp) {
+			return tmp; //메뉴와 메뉴아이템 둘다 있으면 메뉴아이템 반환
+		}
+	}
+	return 0;
+}
+
+//5-3
 //메뉴를 클릭한 경우 출력하는 부분
 void Menu::onMouseClick(int x, int y) {
 	OutputDebugString(m_text.c_str()); // 메뉴안의 내용을 출력한다.
-	OutputDebugString("Clicked.\n");
-	
+	OutputDebugString(" Clicked.\n");	
+	menuState = true; // 메뉴에 마우스가 눌렸으면 메뉴의 상태변수는 true이다.
+	//상태를 true로 만들면서 
 }
 
-//다음 포인터 값에 메뉴 포인터를 저장한다.
-void Menu::setNext(Menu *m){
-	m_menuNext = m;
-}
-
-////범위 내의 값에 대한 포인터를 돌려주는 함수
+//4-4
+//메뉴를 찾아주는 함수
 Window* Menu::isInside(int x, int y) {
 	if (m_x <= x && x < m_x + m_xsize && m_y <= y && y < m_y + m_ysize) {//범위 안이라면
-		return this;  //자기자신을 반환
+		return this;  //메뉴만 반환
 	}
-	else {  //아닌 경우 계속 하고
-		if (m_menuNext != 0) {
-			return m_menuNext->isInside(x, y);
-		}
-		else { //없으면 0을 반환한다.
-			return 0;
-		}
+	else { //없으면 0을 반환한다.
+		return 0;
+	}
+}
+//---------------------------------------------------메뉴아이템을 호출하기위한 함수
+//1-4
+//메뉴아이템의 디스플레이를 호출하는 함수
+void Menu::callMenuitemDisplay(Frame *f) {
+	list<Window *>::iterator i;
+	for (i = windowList->begin(); i != windowList->end(); i++) {
+		//f->invalidate();
+		((MenuItem*)*i)->display(f);
+	}
+}
+
+//모두 false가 되도록만든다
+void Menu::allMenuFalse() { //6-3
+	menuState = false; //마우스가 메뉴를 클릭해서 ture였던 상태를 모두 false로 바꾼다.
+}
+
+//3-3
+//메뉴아이템 상태가 참, 즉 선택되면 메뉴아이템들을 반환해준다.
+Menu * Menu::oneMenuTrue() {
+	if (menuState == true) {
+		return this;
+	}
+	else {
+		return 0;
 	}
 }
