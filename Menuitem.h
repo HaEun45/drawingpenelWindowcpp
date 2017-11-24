@@ -8,7 +8,7 @@ class MenuItem:public Window{
 public:
 	MenuItem(string s);
 	virtual void onMouseClick(int x, int y);
-	void display(Frame *f);
+	void display();
 	Window *isInside(int x, int y);
 	void setXY(int menuitemx, int menuitemy);
 private:

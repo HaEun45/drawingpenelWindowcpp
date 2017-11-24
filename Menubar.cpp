@@ -12,24 +12,25 @@ MenuBar::MenuBar() : Container(xcoordinate, ycoordinate, xsize, ysize) {
 
 //menu등록함수
 void MenuBar::addMenu(Menu *m) {
+	
+	m->setContainer(this); //메뉴아이템에 메뉴를 등록한다.
+	m->setFrame(m_frame); //window에 있는 m_frame을 전달한다.
 	m->setX(m_menux); //x를 변화시켜 줄 함수를 가리킨다.
 	m_menux += xmenusize;
-
 	windowList->push_back(m); // 끝에 요소(포인터)를 추가한다.
 }
 
 //내용을 출력해준다.  //1-2
-void MenuBar::display(Frame *f) {
+void MenuBar::display() {
 
-	f->setPen(RGB(100, 100, 100), 1);
-	f->rectangle(m_x, m_y, m_xsize, m_ysize);
-	drawContent(f);
+	m_frame->setPen(RGB(100, 100, 100), 1);
+	m_frame->rectangle(m_x, m_y, m_xsize, m_ysize);
+	drawContent();
 	//메뉴의 그림을 그려준다
 	list<Window *>::iterator i;
 	for (i = windowList->begin(); i != windowList->end(); i++) {
-		((Menu*)*i)->display(f); //Menu의 display
+		((Menu*)*i)->display(); //Menu의 display
 	}
-	//m_firstMenu->display(f);//메뉴바를 출력한 후 메뉴도 출력해준다.
 }
 
 //3
@@ -90,12 +91,10 @@ Window* MenuBar::isInside(int x, int y) {
 //메뉴에게 닫으라고 보낸다.
 //inside 한개 내 판단 - 펼쳐져있지 않을 때->이용한다.
 //find 여러개 내 판단- 펼쳐져 있을 때
-void MenuBar::closeAllMenu() {  //6-2
+void MenuBar::closeAllMenu() {  
 	//일단 모든 메뉴아이템을 닫아야하니까 반복을한다.
 	list<Window *>::iterator i; 
 	for (i = windowList->begin(); i != windowList->end(); i++) {
-		//Window * temp = ((MenuItem*)*i)->isInside(x, y); //메뉴아이템있나
-		//if (temp) { //메뉴아이템이 있으면
 		((Menu*)*i)->allMenuFalse(); //부울변수를 모두다 false로 바꾼다.
 	}
 }

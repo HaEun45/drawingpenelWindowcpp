@@ -14,57 +14,33 @@ Menu::Menu(string s) : Container(s , 0, 0, xmenusize, ysize ) {
 	menuState = false;
 }
 
-
-//메뉴아이템 등록함수
-void Menu::addMenuItem(MenuItem * mi) {
-	m_menuitemy += ysize;
-	mi->setXY(m_x,m_menuitemy); //자신의 m_x를  메뉴아이템에게 준다.
-	windowList->push_back(mi); //메뉴아이템을 넣어준다
-
-}
-
-
 //변화된 x의 값을 저장하는 함수
 void Menu::setX(int menux) {
 	m_x = menux; //바뀐 menux를 m_x에 저장한다(초기화)
 }
 
-/*
-bool Menu::AreYouMenuClick(int x, int y) {
-	if (m_x <= x && x < m_x + m_xsize && m_y <= y && y < m_y + m_ysize) {
-		//메뉴가 클릭되면
-		menuState = true;  //true를 반환
-		return menuState;
-	}
-	//한 후 다시menuState가 false
-	else {
-		menuState = false; //클릭되지 않으면 false를 반환
-		return menuState;
-	}
-}*/
+
+//메뉴아이템 등록함수
+void Menu::addMenuItem(MenuItem * mi) {
+	mi->setFrame(m_frame);
+	m_menuitemy += ysize;
+	mi->setXY(m_x, m_menuitemy); //자신의 m_x를  메뉴아이템에게 준다.
+	windowList->push_back(mi); //메뉴아이템을 넣어준다
+
+}
+
+
 
 //메뉴가 눌러지면 true로 바뀌고 다른창은 다false
 //메뉴가 눌러지지 않으면 다 false
 
 //1-3
 //화면에 Menu를 출력해 줄 함수 //Menubar의 display에서 Menu의 display를 호출해준다.
-void Menu::display(Frame *f) {
-	f->setPen(RGB(100, 100, 100), 1);
-	f->rectangle(m_x, m_y, m_xsize, m_ysize);
-	drawContent(f);
-	//callMenuitemDisplay(f);//여기서 불러버리면 누르지 않아도 바로 그려지므로 안된다.
+void Menu::display() {
+	m_frame->setPen(RGB(100, 100, 100), 1);
+	m_frame->rectangle(m_x, m_y, m_xsize, m_ysize);
+	drawContent();
 
-	/*
-	//메뉴아이템을 그려준다
-	if (menuState = true) {
-		list<Window *>::iterator i;
-		for (i = windowList->begin(); i != windowList->end(); i++) {
-			(*i)->display(f);
-		}
-	}
-	else {
-		f->invalidate(); //자동으로 display호출
-	}*/
 }
 
 //4-3
@@ -101,11 +77,11 @@ Window* Menu::isInside(int x, int y) {
 //---------------------------------------------------메뉴아이템을 호출하기위한 함수
 //1-4
 //메뉴아이템의 디스플레이를 호출하는 함수
-void Menu::callMenuitemDisplay(Frame *f) {
+void Menu::callMenuitemDisplay() {
 	list<Window *>::iterator i;
 	for (i = windowList->begin(); i != windowList->end(); i++) {
 		//f->invalidate();
-		((MenuItem*)*i)->display(f);
+		((MenuItem*)*i)->display();
 	}
 }
 

@@ -28,10 +28,10 @@ Window* MenuItem::isInside(int x, int y) {
 	}
 }
 //
-void MenuItem::display(Frame *f) {
-	f->setPen(RGB(100, 100, 100), 1);
-	f->rectangle(m_x, m_y, m_xsize, m_ysize);
-	drawContent(f);
+void MenuItem::display() {
+	m_frame->setPen(RGB(100, 100, 100), 1);
+	m_frame->rectangle(m_x, m_y, m_xsize, m_ysize);
+	drawContent();
 	//메뉴아이템은 더이상 불러올 것이 없으므로 list에 넣지 않는다.
 
 }

@@ -14,7 +14,7 @@ public:
 	//void drawContent(Frame *f);
 	virtual void onMouseClick(int x, int y);
 	void add(Window *w);
-	virtual void display(Frame *f); //virtual »õ·Î¾¸
+	virtual void display(); 
 protected:
 	list<Window *> * windowList;
 };

@@ -112,6 +112,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
    mainFrame = new Frame(g_hWnd);  // Á¶¼¼Çü
+ 
 
    ShowWindow(g_hWnd, nCmdShow);
    UpdateWindow(g_hWnd);

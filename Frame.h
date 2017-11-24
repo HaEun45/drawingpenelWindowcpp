@@ -40,9 +40,11 @@ public:
 	//void eraseAll();
 	void invalidate();
 	void onInitialize();
+	void addMenuBar(MenuBar *mb);
+	void addCanvas(Canvas *c);
 	Window* find(int x, int y);
+
 protected:
 	MenuBar *m_menubar;     //menubar 포인터 변수 선언
 	Canvas *m_canvas;      //canvas 포인터 변수 선언
 };
-

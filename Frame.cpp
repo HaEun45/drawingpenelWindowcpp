@@ -144,14 +144,14 @@ void Frame::drawText(std::string str, int x, int y)
 void Frame::display()
 {
 	//display를 실행해줍니다.
-	m_menubar->display(this); //1-1
-	m_canvas->display(this);//2-1
+	m_menubar->display(); //1-1
+	m_canvas->display();
 	//-----------------------------------------------------
 	//다른 형태로 display된다.
 	Window * temp = m_menubar->openOneMenu();//3-1 //여기서 메뉴아이템을 연다
 	//처음에는 메뉴에서 false로 초기화를 했기때문에 0을 반환한다.
 	if (temp) {
-		((Menu*)temp)->callMenuitemDisplay(this); 
+		((Menu*)temp)->callMenuitemDisplay(); 
 		//temp가 0이아닌 메뉴아이템을 반환했으면  메뉴아이템을 출력한다.
 		//처음에는 false로 초기화해서 출력되지 않는다.
 	}
@@ -169,20 +169,37 @@ void Frame::invalidate()
 // 모든 윈도들을 onInitialize 함수에서 초기화하자.
 void Frame::onInitialize()
 {
-	// *** 모든 윈도들을 여기에서 초기화하자.
-	m_menubar = new MenuBar();
-	Menu *fMenu = new Menu("파일");  //Menu포인터에 File과 Edit을 각각 등록(저장)한다.
-	Menu *eMenu = new Menu("편집");
-	m_menubar->addMenu(fMenu);  //fmenu포인터와 emenu포인터를 add함수를 이용해 등록해준다.
-	m_menubar->addMenu(eMenu);
-	m_canvas = new Canvas(this);  //캔버스에 자기자신을 넘기면서 등록해준다.
 
+	// *** 모든 윈도들을 여기에서 초기화하자.
+	addMenuBar(new MenuBar());
+	addCanvas(new Canvas());
+	Menu *fMenu = new Menu("파일"); //Menu포인터에 File과 Edit을 각각 등록(저장)한다.
+	Menu *eMenu = new Menu("편집");
+	m_menubar->addMenu(fMenu);//fmenu포인터와 emenu포인터를 add함수를 이용해 등록해준다.
+	m_menubar->addMenu(eMenu);
 	fMenu->addMenuItem(new MenuItem("열기"));
 	fMenu->addMenuItem(new MenuItem("저장"));
 	fMenu->addMenuItem(new MenuItem("끝내기"));
 	eMenu->addMenuItem(new MenuItem("복사"));
 	eMenu->addMenuItem(new MenuItem("자르기"));
 	eMenu->addMenuItem(new MenuItem("붙이기"));
+}
+
+//메뉴바 저장 함수
+void Frame::addMenuBar(MenuBar * mb) {
+	if (!mb) return; //메뉴바가 아니면 바로 반환한다.
+	windowList->push_back(mb); //windowList에 추가해준다.
+	mb->setContainer(this); //container에 메뉴바가 가리키는 경우의 frame을 저장
+	mb->setFrame(this); //메뉴바가 가리키는 경우의 프레임을 저장
+	m_menubar = mb; //메뉴바의 멤버변수에 저장
+}
+//캔버스 저장함수
+void Frame::addCanvas(Canvas *c) {
+	if (!c)return;
+	windowList->push_back(c); //windowList에 추가한다.
+	c->setContainer(this);// container에 캔버스가 가리키는 경우의 frame을 저장
+	c->setFrame(this); //캔버스를 window의 프레임에 저장한다.
+	m_canvas = c;//캔버스의 멤버변수에 저장
 }
 
 Window * Frame::find(int x, int y) {

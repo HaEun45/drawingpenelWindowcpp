@@ -34,11 +34,12 @@ void Container::add(Window *w) {
 	windowList->push_back(w);
 }
 
-void Container::display(Frame *f) {
+void Container::display() {
 	//리스트로 만들어주는 부분
 	
 	list<Window *>::iterator i;
 	for (i = windowList->begin(); i != windowList->end(); i++) {
-		(*i)->display(f);
+		(*i)->display();
 	}
 }
+
