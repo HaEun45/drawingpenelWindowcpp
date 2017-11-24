@@ -13,7 +13,7 @@ public:
 	Container(string s, int x, int y, int sx, int sy);
 	//void drawContent(Frame *f);
 	virtual void onMouseClick(int x, int y);
-	void add(Window *w);
+	void add(Window *w); 
 	virtual void display(); 
 protected:
 	list<Window *> * windowList;

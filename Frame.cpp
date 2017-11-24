@@ -4,6 +4,11 @@
 #include "Frame.h"
 #include "Canvas.h"
 #include "Menubar.h"
+#include "Menu.h"
+#include "MenuItem.h"
+#include "Canvas.h"
+
+
 
 Frame::Frame(HWND w):myWnd(w)
 {

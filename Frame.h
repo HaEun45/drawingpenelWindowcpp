@@ -1,7 +1,7 @@
 #pragma once
-#include <iostream>
 #include "Container.h"
-#include "Canvas.h"
+//#include "Canvas.h"
+#include <iostream>
 #include <list>
 using namespace std;
 
@@ -38,12 +38,13 @@ public:
 	void drawText(std::string str, int x, int y);
 	void display();
 	//void eraseAll();
-	void invalidate();
-	void onInitialize();
-	void addMenuBar(MenuBar *mb);
-	void addCanvas(Canvas *c);
+	void invalidate(); //화면을 엎고 다시 display를 한다.
+	virtual void onInitialize(); //가상함수로 한다.
+	virtual void processEvent(Window * src)=0; //가상함수로 만든다.
+	void addMenuBar(MenuBar *mb); //메뉴바를 추가해 저장해주는 함수
+	void addCanvas(Canvas *c);  //캔버스를 추가해 저장해주는 함수
 	Window* find(int x, int y);
-
+	 
 protected:
 	MenuBar *m_menubar;     //menubar 포인터 변수 선언
 	Canvas *m_canvas;      //canvas 포인터 변수 선언

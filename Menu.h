@@ -17,10 +17,10 @@ public:
 	Window* isInside(int x, int y); //범위내의 값에대한 포인터를 반환하는 함수
 	Window* find(int x, int y);
 	//bool Menu::AreYouMenuClick(int x, int y);
-	void callMenuitemDisplay();
-	void allMenuFalse();
-	Menu* Menu::oneMenuTrue();
+	void callMenuitemDisplay();  //전체를 출력해준다.
+	void allMenuFalse();   //모든 메뉴를 false로 만든다.
+	Menu* Menu::oneMenuTrue(); //true인 메뉴를 찾는다.
 private:
-	bool menuState;
-	int m_menuitemx,m_menuitemy;
+	bool menuState;  //상태변수
+	int m_menuitemx,m_menuitemy; //위치 설정위한 변수
 };

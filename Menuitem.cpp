@@ -17,8 +17,10 @@ void MenuItem::setXY(int menuitemx,int menuitemy) {
 void MenuItem::onMouseClick(int x, int y) {
 	OutputDebugString(m_text.c_str()); // 메뉴안의 내용을 출력한다.
 	OutputDebugString(" Clicked.\n");
+	m_frame->processEvent(this);
 }
-//4-5
+
+//메뉴아이템의 범위에 있는지 없는지 확인해주는 함수
 Window* MenuItem::isInside(int x, int y) {
 	if (m_x <= x && x < m_x + m_xsize && m_y <= y && y < m_y + m_ysize) {//범위 안이라면
 		return this;  //자기자신을 반환
@@ -27,7 +29,7 @@ Window* MenuItem::isInside(int x, int y) {
 		return 0;
 	}
 }
-//
+//메뉴아이템을 만들어주는 함수
 void MenuItem::display() {
 	m_frame->setPen(RGB(100, 100, 100), 1);
 	m_frame->rectangle(m_x, m_y, m_xsize, m_ysize);
