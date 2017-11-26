@@ -3,12 +3,12 @@
 #include<iostream>
 #include <list>
 using namespace std;
-#define xcoordinate 0 
-#define ycoordinate 0 
-#define xsize 620 //더할 만큼 을 200으로 정의해 둔다.
-#define ysize 30
-#define xmenusize 100
-#define ycansize 400
+#define XCOORDINATE 0 
+#define YCOORDINATE 0 
+#define XSIZE 620 
+#define YSIZE 30
+#define XMENUSIZE 100
+#define YCANSIZE 400
 
 class Container;
 class Frame;
@@ -21,7 +21,7 @@ public:
 	void drawContent(); //내용물을 그려준다.
 	void setContainer(Container *con); //컨테이너에 저장하는 함수
 	void setFrame(Frame *f); //프레임에 저장해주는 함수
-	//virtual Window* find(int x, int y)=0;
+	virtual void onMouseClickUp(int x, int y);// 마우를 up하는 순간의 좌표를 돌려주는 함수
 protected:
 	int m_x, m_y, m_xsize, m_ysize; //각각 x,y좌표와 사이즈들
 	string m_text;

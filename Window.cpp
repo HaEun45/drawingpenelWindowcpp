@@ -14,6 +14,7 @@ Window::Window(int x, int y, int sx, int sy) :
 	m_x(x), m_y(y), m_xsize(sx), m_ysize(sy) {
 }
 
+//내용을 그려주는 함수
 void Window::drawContent() {
 	m_frame->drawText(m_text, m_x + 5, m_y + 5);
 }
@@ -22,7 +23,12 @@ void Window::drawContent() {
 void Window::setContainer(Container *con) {
 	m_container = con;
 } 
+
+//프레임을 저장해준다. 
 void Window::setFrame(Frame *f) {
 	m_frame = f;
 }
 
+
+void Window::onMouseClickUp(int x, int y) {
+}

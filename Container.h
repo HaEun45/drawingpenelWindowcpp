@@ -2,7 +2,6 @@
 #include<iostream>
 #include <list>
 #include "Window.h"
-#include <list>
 using namespace std;
 
 class Frame;
@@ -11,10 +10,10 @@ public:
 	Container();
 	Container(int x, int y, int sx, int sy);
 	Container(string s, int x, int y, int sx, int sy);
-	//void drawContent(Frame *f);
-	virtual void onMouseClick(int x, int y);
-	void add(Window *w); 
+	virtual void onMouseClick(int x, int y); ///마우스 클릭 down
+	virtual void onMouseClickUp(int x, int y);//마우스 클릭 Up
+	//void add(Window *w);  
 	virtual void display(); 
 protected:
-	list<Window *> * windowList;
+	list<Window *> * windowList; //윈도우 리스트
 };

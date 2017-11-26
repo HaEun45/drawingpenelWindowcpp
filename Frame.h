@@ -1,6 +1,5 @@
 #pragma once
 #include "Container.h"
-//#include "Canvas.h"
 #include <iostream>
 #include <list>
 using namespace std;
@@ -43,7 +42,7 @@ public:
 	virtual void processEvent(Window * src)=0; //가상함수로 만든다.
 	void addMenuBar(MenuBar *mb); //메뉴바를 추가해 저장해주는 함수
 	void addCanvas(Canvas *c);  //캔버스를 추가해 저장해주는 함수
-	Window* find(int x, int y);
+	Window* find(int x, int y); 
 	 
 protected:
 	MenuBar *m_menubar;     //menubar 포인터 변수 선언

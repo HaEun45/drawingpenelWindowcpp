@@ -35,18 +35,12 @@ void Frame::OnLButtonDown(long wParam, int x, int y)
 {
 	OutputDebugString("Click \n");
 	// 윈도을 찾아서 윈도의 onMouseClick을 실행
-	Window *w = find(x, y);  //4-1  //여기 find(x,y)는 Frame의 것
+	Window *w = find(x, y);  //여기 find(x,y)는 Frame의 것
 	if (w) { //만약 메뉴바나 메뉴나 캔버스라면 
-		m_menubar->closeAllMenu();  //6-1 //메뉴아이템이 클릭된 후 모든 메뉴아이템을 닫아준다.
+		m_menubar->closeAllMenu();  //메뉴아이템이 클릭된 후 모든 메뉴아이템을 닫아준다.
 		//메뉴아이템은 true일때만 클릭된다. 그럼 받은 w(메뉴아이템)이 true인 메뉴아이템이어야 한다.
-		w->onMouseClick(x, y); //5-1 //메뉴의 onMouseClick에서 선택된 메뉴의 상태를 true로 만든다.
-		
-		/*Window * temp = m_menubar->openOneMenu();
-		if (temp) {
-			((Menu*)temp)->callMenuitemDisplay(this);
-		}*/
-		// find에서 찾은 반환값이 0이 아니면 항상 메뉴의 부울 변수를 false로 만든다.
-		//메뉴아이템이 닫힌다.
+		w->onMouseClick(x, y); //메뉴의 onMouseClick에서 선택된 메뉴의 상태를 true로 만든다.
+	
 	}
 	invalidate(); //모든 창을 지우고 다시 만들어 준다.
 	/* 
@@ -63,6 +57,9 @@ void Frame::OnLButtonUp(long wParam, int x, int y)
 	Window *w = find(x, y); //윈도우를 찾아서 
 	if (!w) {  //만약 윈도우가 없으면 
 		OutputDebugString("Click "); //Click을 출력한다.
+	}
+	if (w) {
+		w->onMouseClickUp(x, y);
 	}
 	/*
 	 * 아래는 선 색깔, 채움 색깔을 결정하는 방법을 알려줍니다.
@@ -133,10 +130,13 @@ void Frame::ellipse(int x, int y, int sizeX, int sizeY)
 	Ellipse(hDC, x, y, x + sizeX, y + sizeY);
 }
 
+//선분을 그려주는 함수
 void Frame::line(int x, int y, int sizeX, int sizeY)
 {
-	MoveToEx(hDC, x, y, NULL);
+	MoveToEx(hDC, x, y, NULL);  
+	//x는 새로운 위치의 좌표, y는 새로운 위치의y좌표 
 	LineTo(hDC, x + sizeX, y + sizeY);
+	//x+xsize는 그리는 좌표 종점 x , y+ysize는 그리는 좌표 종점
 }
 
 
@@ -149,11 +149,11 @@ void Frame::drawText(std::string str, int x, int y)
 void Frame::display()
 {
 	//display를 실행해줍니다.
-	m_menubar->display(); //1-1
+	m_menubar->display(); 
 	m_canvas->display();
 	//-----------------------------------------------------
 	//다른 형태로 display된다.
-	Window * temp = m_menubar->openOneMenu();//3-1 //여기서 메뉴아이템을 연다
+	Window * temp = m_menubar->openOneMenu();//여기서 메뉴아이템을 연다
 	//처음에는 메뉴에서 false로 초기화를 했기때문에 0을 반환한다.
 	if (temp) {
 		((Menu*)temp)->callMenuitemDisplay(); 
@@ -215,21 +215,13 @@ Window * Frame::find(int x, int y) {
 		return m_menubar;
 	}
 	//메뉴아이템 반환하기
-	else if(temp = (m_menubar->find(x, y)) ){
-		if (m_menubar->openOneMenu())
-			return temp;
+	else if(temp = (m_menubar->find(x, y)) ){ //메뉴를 찾는데
+		if (m_menubar->openOneMenu())  //이 때, ture인 메뉴라면
+			return temp; //그 메뉴를 반환해준다.
 		else
 			return m_canvas;
 	}
-
-		//메뉴바뿐만이 아니라 메뉴도 반환을 해주어야한다.
-		//그렇다면 메뉴의 isInside에 접근해야한다.
-		/*
-		else if (((Menu*)*i)->isInside(x, y)) {
-			return ((Menu*)*i)->isInside(x, y);
-		}*/
 	else {  //메뉴가 없으면 캔버스를 반환해준다.
 		return m_canvas;
 	}
-	//return m_canvas;
 }

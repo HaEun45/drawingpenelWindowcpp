@@ -19,20 +19,16 @@ Container::Container(string s, int x, int y, int sx, int sy)
 	m_text = s;
 }
 
-/*
-void Container::drawContent(Frame *f) {
-	f->drawText(m_text, m_x + 5, m_y + 5);
-}*/
 
 void Container::onMouseClick(int x, int y) {
 
 }
 
 
-
+/*
 void Container::add(Window *w) {
 	windowList->push_back(w);
-}
+}*/
 
 void Container::display() {
 	//리스트로 만들어주는 부분
@@ -43,3 +39,6 @@ void Container::display() {
 	}
 }
 
+void Container::onMouseClickUp(int x, int y) {
+
+}

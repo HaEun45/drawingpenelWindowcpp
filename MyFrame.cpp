@@ -47,7 +47,7 @@ void MyFrame::processEvent(Window * src) {
 		OutputDebugString("메뉴아이템 복사를 클릭");
 	}
 	else if (src == miCut) {
-		OutputDebugString("메뉴아이템 지우기를 클릭");
+		OutputDebugString("메뉴아이템 자르기(지우기)를 클릭");
 	}
 	else if (src == miPaste) {
 		OutputDebugString("메뉴아이템 붙여넣기를 클릭");

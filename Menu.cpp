@@ -1,16 +1,17 @@
-//#include<fstream>
 #include "stdafx.h" 
 #include "Menubar.h"
 #include "Menu.h"
+#include "Menuitem.h"
 #include "Frame.h"
 
 
+
 //메뉴생성자
-Menu::Menu(string s) : Container(s , 0, 0, xmenusize, ysize ) {
+Menu::Menu(string s) : Container(s , XCOORDINATE, YCOORDINATE, XMENUSIZE, YSIZE) {
 	m_text = s; //text를 s에 저장
 	m_menuitemy = 0;
 	windowList = new list<Window *>;
-	//menuState = true;
+	//menuState = true; 
 	menuState = false;
 }
 
@@ -23,7 +24,7 @@ void Menu::setX(int menux) {
 //메뉴아이템 등록함수
 void Menu::addMenuItem(MenuItem * mi) {
 	mi->setFrame(m_frame);
-	m_menuitemy += ysize;
+	m_menuitemy += YSIZE;
 	mi->setXY(m_x, m_menuitemy); //자신의 m_x를  메뉴아이템에게 준다.
 	windowList->push_back(mi); //메뉴아이템을 넣어준다
 
@@ -62,6 +63,10 @@ void Menu::onMouseClick(int x, int y) {
 	menuState = true; // 메뉴에 마우스가 눌렸으면 메뉴의 상태변수는 true이다.
 }
 
+//마우스 뗼 때 출력되는 함수
+void Menu::onMouseClickUp(int x, int y) {
+	OutputDebugString(" Menu Cliked Up.\n");
+}
 
 //메뉴를 찾아주는 함수
 Window* Menu::isInside(int x, int y) {
@@ -98,3 +103,4 @@ Menu * Menu::oneMenuTrue() {
 		return 0;
 	}
 }
+

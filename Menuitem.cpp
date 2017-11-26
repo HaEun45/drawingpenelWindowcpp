@@ -4,7 +4,7 @@
 #include "Menu.h"
 
 //생성자
-MenuItem::MenuItem(string s) : Window(0,xsize, xmenusize, ysize) {
+MenuItem::MenuItem(string s) : Window(XCOORDINATE,XSIZE, XMENUSIZE, YSIZE) {
 	m_text = s;
 }
 
@@ -17,7 +17,12 @@ void MenuItem::setXY(int menuitemx,int menuitemy) {
 void MenuItem::onMouseClick(int x, int y) {
 	OutputDebugString(m_text.c_str()); // 메뉴안의 내용을 출력한다.
 	OutputDebugString(" Clicked.\n");
-	m_frame->processEvent(this);
+	m_frame->processEvent(this); //메뉴아이템이 자신의 주소를 전달해준다.
+}
+
+//마우스를 뗄 때 출력하는 함수
+void MenuItem::onMouseClickUp(int x, int y) {
+	OutputDebugString("Menuitem Clicked Up.\n");
 }
 
 //메뉴아이템의 범위에 있는지 없는지 확인해주는 함수

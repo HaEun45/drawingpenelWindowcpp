@@ -1,6 +1,6 @@
 #pragma once
 #include "Container.h"
-#include "Menuitem.h"
+//#include "Menuitem.h"
 #include<iostream>
 using namespace std;
 
@@ -20,6 +20,8 @@ public:
 	void callMenuitemDisplay();  //전체를 출력해준다.
 	void allMenuFalse();   //모든 메뉴를 false로 만든다.
 	Menu* Menu::oneMenuTrue(); //true인 메뉴를 찾는다.
+	void onMouseClickUp(int x, int y); //마우스 뗼 때 출력되는 함수
+
 private:
 	bool menuState;  //상태변수
 	int m_menuitemx,m_menuitemy; //위치 설정위한 변수
