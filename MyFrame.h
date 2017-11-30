@@ -12,6 +12,7 @@ public:
 	void processEvent(Window * src); //메뉴아이템 클릭에 반응하는 함수
 private:
 	//필요한 각각의 포인터 변수 선언
-	Menu* menuFile, *menuEdit;
-	MenuItem* miOpen, *miSave, *miExit, *miCopy, *miCut, *miPaste;
+	Menu* menuFigure, *menuColor;
+	MenuItem* miRectangle, *miEllipse, *miLine, *miBlack, *miRed, *miBlue;
+
 };

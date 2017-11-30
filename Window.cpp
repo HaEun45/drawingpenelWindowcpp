@@ -29,6 +29,5 @@ void Window::setFrame(Frame *f) {
 	m_frame = f;
 }
 
-
 void Window::onMouseClickUp(int x, int y) {
 }

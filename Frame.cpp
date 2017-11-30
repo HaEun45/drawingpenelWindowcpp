@@ -7,6 +7,7 @@
 #include "Menu.h"
 #include "MenuItem.h"
 #include "Canvas.h"
+#include "Figure.h"
 
 
 
@@ -43,11 +44,17 @@ void Frame::OnLButtonDown(long wParam, int x, int y)
 	
 	}
 	invalidate(); //모든 창을 지우고 다시 만들어 준다.
-	/* 
-	control key나 shift key등에 따라 다르게 하려면
-	if (wParam & MK_CONTROL)  .. MK_SHIFT 등
+		
+	//control key나 shift key등에 따라 다르게 하려면
+	//Ctrl-클릭 시 도형 지우기
 
-	*/
+	if (wParam & MK_CONTROL) {  //컨트롤 누를상태에서 클릭하면
+		//화면에 마지막으로 그려진 도형이 지워진다.
+		m_canvas->removeFigure(x,y);
+	}
+	
+
+	
 	// 위 코드는 테스트용이고, Frame 객체의 OnLButtonDown 함수를 호출해
 }
 
@@ -61,6 +68,7 @@ void Frame::OnLButtonUp(long wParam, int x, int y)
 	if (w) {
 		w->onMouseClickUp(x, y);
 	}
+	//invalidate();
 	/*
 	 * 아래는 선 색깔, 채움 색깔을 결정하는 방법을 알려줍니다.
 	setPenColor(RGB(255, 0, 0));
@@ -83,13 +91,13 @@ void Frame::OnChar(long ch)
 {
 	// 키보드 입력이 되면 이 함수가 자동 호출됩니다.  cin이나 getchar, scanf 같은
 	// 표준 입력함수는 작동하지 않으니 onchar 를 잘 이용해야 합니다.
-	/*
+	
 	string s;
 	s = "입력된 문자: ";
 	s += ch;
 	setTextColor(RGB(200, 100, 100));
 	drawText(s, 100, 100);
-	*/
+	
 OutputDebugString("Key 입력.\n");
 
 }
@@ -119,12 +127,12 @@ void Frame::setTextColor(COLORREF color)
 	SetTextColor(hDC, color);
 }
 
-
+//사각형
 void Frame::rectangle(int x, int y, int sizeX, int sizeY)
 {
 	Rectangle(hDC, x, y, x + sizeX, y + sizeY);
 }
-
+//타원
 void Frame::ellipse(int x, int y, int sizeX, int sizeY)
 {
 	Ellipse(hDC, x, y, x + sizeX, y + sizeY);
@@ -194,8 +202,8 @@ void Frame::onInitialize()
 void Frame::addMenuBar(MenuBar * mb) {
 	if (!mb) return; //메뉴바가 아니면 바로 반환한다.
 	windowList->push_back(mb); //windowList에 추가해준다.
-	mb->setContainer(this); //container에 메뉴바가 가리키는 경우의 frame을 저장
-	mb->setFrame(this); //메뉴바가 가리키는 경우의 프레임을 저장
+	mb->setContainer(this); //WindowList에 포함되어있는 MenuBar에 프레임을 준다.
+	mb->setFrame(this); //MenuBar에게 프레임을 준다.
 	m_menubar = mb; //메뉴바의 멤버변수에 저장
 }
 //캔버스 저장함수

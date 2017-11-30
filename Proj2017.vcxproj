@@ -81,7 +81,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Canvas.h" />
+    <ClInclude Include="CEllipse.h" />
+    <ClInclude Include="CLine.h" />
     <ClInclude Include="Container.h" />
+    <ClInclude Include="CRectangle.h" />
+    <ClInclude Include="Figure.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Menubar.h" />
@@ -95,7 +99,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Canvas.cpp" />
+    <ClCompile Include="CEllipse.cpp" />
+    <ClCompile Include="CLine.cpp" />
     <ClCompile Include="Container.cpp" />
+    <ClCompile Include="CRectangle.cpp" />
+    <ClCompile Include="Figure.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Menubar.cpp" />

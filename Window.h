@@ -27,5 +27,6 @@ protected:
 	string m_text;
 	Container *m_container; //컨테이너의 멤버변수
 	Frame * m_frame; //프레임의 멤버변수
+	int MenuItemNum; //어떤 메뉴아이템을 눌렀는지 알려주는 변수
 	
 };

@@ -1,13 +1,14 @@
-﻿  Menu.cpp
+﻿  Frame.cpp
+c:\users\user\desktop\proj\drawingpenelwindowcpp\frame.cpp(97): warning C4244: 'argument': conversion from 'long' to 'char', possible loss of data
+  Canvas.cpp
   Generating Code...
   Skipping... (no relevant changes detected)
   Window.cpp
-  Controller.cpp
-  Container.cpp
-  Canvas.cpp
-  MyFrame.cpp
   Menuitem.cpp
   Menubar.cpp
-  Frame.cpp
+  Menu.cpp
+  Controller.cpp
+  Container.cpp
+  MyFrame.cpp
   Proj2017.vcxproj -> C:\Users\user\Desktop\proj\drawingpenelWindowcpp\Debug\Proj2017.exe
   Proj2017.vcxproj -> C:\Users\user\Desktop\proj\drawingpenelWindowcpp\Debug\Proj2017.pdb (Full PDB)

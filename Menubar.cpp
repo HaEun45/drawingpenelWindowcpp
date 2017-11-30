@@ -12,7 +12,7 @@ MenuBar::MenuBar() : Container(XCOORDINATE, YCOORDINATE, XSIZE, YSIZE) {
 //menu등록함수
 void MenuBar::addMenu(Menu *m) {
 	
-	m->setContainer(this); //메뉴아이템에 메뉴를 등록한다.
+	m->setContainer(this); //WindowList에 포함되어있는 Menu에 메뉴바를 준다.
 	m->setFrame(m_frame); //window에 있는 m_frame을 전달한다.
 	m->setX(m_menux); //x를 변화시켜 줄 함수를 가리킨다.
 	m_menux += XMENUSIZE;

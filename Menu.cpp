@@ -23,14 +23,13 @@ void Menu::setX(int menux) {
 
 //메뉴아이템 등록함수
 void Menu::addMenuItem(MenuItem * mi) {
-	mi->setFrame(m_frame);
+	//메뉴아이템은 더이상 포함할 것이 없으므로 setContainer를 해주지 않는다.
+	mi->setFrame(m_frame); //모든 곳에서 frame을 갖고 있도록 해준다.
 	m_menuitemy += YSIZE;
 	mi->setXY(m_x, m_menuitemy); //자신의 m_x를  메뉴아이템에게 준다.
 	windowList->push_back(mi); //메뉴아이템을 넣어준다
 
 }
-
-
 
 //메뉴가 눌러지면 true로 바뀌고 다른창은 다false
 //메뉴가 눌러지지 않으면 다 false
