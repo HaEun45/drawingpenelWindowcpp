@@ -2,8 +2,6 @@
 #include "stdafx.h"
 #include "Window.h"
 #include "Frame.h"
-//#include "Container.h"
-//#include "Canvas.h"
 
 
 //기본 생성자

@@ -46,10 +46,10 @@ Figure* Figure::isInside(int x,int y) {
 	}
 
 }
-/*
+
 //클릭 down,up한 x,y가 바뀐다. //평행이동시킨다.
 void Figure::moveFigureXY(int x, int y) {
 	m_clickDownX += x;
 	m_clickDownY += y;
-}*/
+}
 

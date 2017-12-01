@@ -19,19 +19,16 @@ void MenuBar::addMenu(Menu *m) {
 	windowList->push_back(m); // 끝에 요소(포인터)를 추가한다.
 }
 
-//내용을 출력해준다.  
-void MenuBar::display() {
-
-	m_frame->setPen(RGB(100, 100, 100), 1);
-	m_frame->rectangle(m_x, m_y, m_xsize, m_ysize);
-	drawContent();
-	//메뉴의 그림을 그려준다
-	list<Window *>::iterator i;
-	for (i = windowList->begin(); i != windowList->end(); i++) {
-		((Menu*)*i)->display(); //Menu의 display
+//메뉴를 찾아서 반환하거나 메뉴바를 반환해주는 함수-해당범위내에 있는지 확인
+Window* MenuBar::isInside(int x, int y) {
+	//메뉴바안에 있다면
+	if (m_x <= x && x < m_x + m_xsize &&	m_y <= y && y < m_y + m_ysize) {
+		return this;  //메뉴바를 반환한다.
+	}
+	else {
+		return 0;
 	}
 }
-
 
 //메뉴를 찾는다. - 메뉴를 찾아서 찾은 메뉴를 반환해주는 역할
 Window* MenuBar::find(int x, int y) {
@@ -48,51 +45,6 @@ Window* MenuBar::find(int x, int y) {
 	return 0;
 }
 
-
-//5-2
-//마우스를 클릭했을 때 일어나는 일에 대한 함수
-void MenuBar::onMouseClick(int x, int y) {
-	OutputDebugString("MenuBar Clicked. "); //먼저 출력한다.
-	list<Window *>::iterator i;
-	for (i = windowList->begin(); i != windowList->end(); i++) {
-		Window *temp=((Menu*)*i)->isInside(x, y); //메뉴를 찾는다 //find로 하면 안됨
-		if(temp) { 
-			temp->onMouseClick(x, y); //메뉴가 있다면 출력된다.
-			//메뉴를 출력하면서 이때 상태를 true라고 한다.
-		}
-	}
-}
-
-
-//메뉴를 찾아서 반환하거나 메뉴바를 반환해주는 함수-해당범위내에 있는지 확인
-Window* MenuBar::isInside(int x, int y) {
-	//메뉴바안에 있다면
-	if (m_x <= x && x < m_x + m_xsize &&	m_y <= y && y < m_y + m_ysize) {
-		return this;  //메뉴바를 반환한다.
-	}
-	else {
-		return 0;
-	}
-}
-
-
-//옆에 메뉴가 클릭되면 
-//클릭된 메뉴의 메뉴아이템이 클릭되어져야한다.
-//다른 메뉴아이템은 닫혀야 한다.
-
-//메뉴에게 닫으라고 보낸다.
-//inside 한개 내 판단 - 펼쳐져있지 않을 때->이용한다.
-//find 여러개 내 판단- 펼쳐져 있을 때
-void MenuBar::closeAllMenu() {  
-	//일단 모든 메뉴아이템을 닫아야하니까 반복을한다.
-	list<Window *>::iterator i; 
-	for (i = windowList->begin(); i != windowList->end(); i++) {
-		((Menu*)*i)->allMenuFalse(); //부울변수를 모두다 false로 바꾼다.
-	}
-}
-
-
-
 //메뉴한개만 메뉴아이템을 보여주도록한다.->아이템 하나만 참이여야한다.
 Window* MenuBar::openOneMenu() {
 	list<Window *>::iterator i;
@@ -104,6 +56,52 @@ Window* MenuBar::openOneMenu() {
 	}
 	return 0;
 }
+
+
+//옆에 메뉴가 클릭되면 
+//클릭된 메뉴의 메뉴아이템이 클릭되어져야한다.
+//다른 메뉴아이템은 닫혀야 한다.
+
+//메뉴에게 닫으라고 보낸다.
+//inside 한개 내 판단 - 펼쳐져있지 않을 때->이용한다.
+//find 여러개 내 판단- 펼쳐져 있을 때
+void MenuBar::closeAllMenu() {
+	//일단 모든 메뉴아이템을 닫아야하니까 반복을한다.
+	list<Window *>::iterator i;
+	for (i = windowList->begin(); i != windowList->end(); i++) {
+		((Menu*)*i)->allMenuFalse(); //부울변수를 모두다 false로 바꾼다.
+	}
+}
+
+
+//마우스를 클릭했을 때 일어나는 일에 대한 함수
+void MenuBar::onMouseClick(int x, int y) {
+	OutputDebugString("MenuBar Clicked. "); //먼저 출력한다.
+	list<Window *>::iterator i;
+	for (i = windowList->begin(); i != windowList->end(); i++) {
+		Window *temp = ((Menu*)*i)->isInside(x, y); //메뉴를 찾는다 //find로 하면 안됨
+		if (temp) {
+			temp->onMouseClick(x, y); //메뉴가 있다면 출력된다.
+									  //메뉴를 출력하면서 이때 상태를 true라고 한다.
+		}
+	}
+}
+
+
+
+//내용을 출력해준다.  
+void MenuBar::display() {
+
+	m_frame->setPen(RGB(100, 100, 100), 1);
+	m_frame->rectangle(m_x, m_y, m_xsize, m_ysize);
+	drawContent();
+	//메뉴의 그림을 그려준다
+	list<Window *>::iterator i;
+	for (i = windowList->begin(); i != windowList->end(); i++) {
+		((Menu*)*i)->display(); //Menu의 display
+	}
+}
+
 
 //마우스 뗼 때 출력되는 함수
 void MenuBar::onMouseClickUp(int x, int y) {

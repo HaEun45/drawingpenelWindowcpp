@@ -41,22 +41,34 @@ void Frame::OnLButtonDown(long wParam, int x, int y)
 		m_menubar->closeAllMenu();  //메뉴아이템이 클릭된 후 모든 메뉴아이템을 닫아준다.
 		//메뉴아이템은 true일때만 클릭된다. 그럼 받은 w(메뉴아이템)이 true인 메뉴아이템이어야 한다.
 		w->onMouseClick(x, y); //메뉴의 onMouseClick에서 선택된 메뉴의 상태를 true로 만든다.
-	
 	}
 	invalidate(); //모든 창을 지우고 다시 만들어 준다.
-		
-	//control key나 shift key등에 따라 다르게 하려면
 	//Ctrl-클릭 시 도형 지우기
-
 	if (wParam & MK_CONTROL) {  //컨트롤 누를상태에서 클릭하면
 		//화면에 마지막으로 그려진 도형이 지워진다.
 		m_canvas->removeFigure(x,y);
-	}
-	
-
-	
-	// 위 코드는 테스트용이고, Frame 객체의 OnLButtonDown 함수를 호출해
+	}	
 }
+
+Window * Frame::find(int x, int y) {
+	Window *temp;
+	// 각 윈도에게 isInside(x, y) 를 물어서 클릭된 객체의 포인터를 돌려주자.
+	if (m_menubar->isInside(x, y)) {  //메뉴가 반환값이 존재하면 
+									  //메뉴바를 반환해준다.
+		return m_menubar;
+	}
+	//메뉴아이템 반환하기
+	else if (temp = (m_menubar->find(x, y))) { //메뉴를 찾는데
+		if (m_menubar->openOneMenu())  //이 때, ture인 메뉴라면
+			return temp; //그 메뉴를 반환해준다.
+		else
+			return m_canvas;
+	}
+	else {  //메뉴가 없으면 캔버스를 반환해준다.
+		return m_canvas;
+	}
+}
+
 
 
 void Frame::OnLButtonUp(long wParam, int x, int y)
@@ -76,6 +88,8 @@ void Frame::OnLButtonUp(long wParam, int x, int y)
 	rectangle(x, y, 100, 200);
 	*/
 }
+
+
 void Frame::OnRButtonDown(long wParam, int x, int y)
 {
 	// 프로그램 종료 방법을 데모하기 위해 우측 버튼 클릭시 아래 줄을 호출하게 만들었습니다.
@@ -97,8 +111,7 @@ void Frame::OnChar(long ch)
 	s += ch;
 	setTextColor(RGB(200, 100, 100));
 	drawText(s, 100, 100);
-	
-OutputDebugString("Key 입력.\n");
+	OutputDebugString("Key 입력.\n");
 
 }
 
@@ -158,8 +171,7 @@ void Frame::display()
 {
 	//display를 실행해줍니다.
 	m_menubar->display(); 
-	m_canvas->display();
-	//-----------------------------------------------------
+
 	//다른 형태로 display된다.
 	Window * temp = m_menubar->openOneMenu();//여기서 메뉴아이템을 연다
 	//처음에는 메뉴에서 false로 초기화를 했기때문에 0을 반환한다.
@@ -168,6 +180,8 @@ void Frame::display()
 		//temp가 0이아닌 메뉴아이템을 반환했으면  메뉴아이템을 출력한다.
 		//처음에는 false로 초기화해서 출력되지 않는다.
 	}
+
+	m_canvas->display();
 }
 
 // 화면이 현재 제대로 안되어 있다고 알리는 함수입니다.
@@ -182,7 +196,7 @@ void Frame::invalidate()
 // 모든 윈도들을 onInitialize 함수에서 초기화하자.
 void Frame::onInitialize()
 {
-
+	/*
 	// *** 모든 윈도들을 여기에서 초기화하자.
 	addMenuBar(new MenuBar());
 	addCanvas(new Canvas());
@@ -196,6 +210,7 @@ void Frame::onInitialize()
 	eMenu->addMenuItem(new MenuItem("복사"));
 	eMenu->addMenuItem(new MenuItem("자르기"));
 	eMenu->addMenuItem(new MenuItem("붙이기"));
+	*/
 }
 
 //메뉴바 저장 함수
@@ -213,23 +228,4 @@ void Frame::addCanvas(Canvas *c) {
 	c->setContainer(this);// container에 캔버스가 가리키는 경우의 frame을 저장
 	c->setFrame(this); //캔버스를 window의 프레임에 저장한다.
 	m_canvas = c;//캔버스의 멤버변수에 저장
-}
-
-Window * Frame::find(int x, int y) {
-	Window *temp;
-	// 각 윈도에게 isInside(x, y) 를 물어서 클릭된 객체의 포인터를 돌려주자.
-	if (m_menubar->isInside(x, y)) {  //메뉴가 반환값이 존재하면 
-		  //메뉴바를 반환해준다.
-		return m_menubar;
-	}
-	//메뉴아이템 반환하기
-	else if(temp = (m_menubar->find(x, y)) ){ //메뉴를 찾는데
-		if (m_menubar->openOneMenu())  //이 때, ture인 메뉴라면
-			return temp; //그 메뉴를 반환해준다.
-		else
-			return m_canvas;
-	}
-	else {  //메뉴가 없으면 캔버스를 반환해준다.
-		return m_canvas;
-	}
 }

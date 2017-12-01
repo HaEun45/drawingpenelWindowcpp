@@ -10,6 +10,5 @@ public:
 	CEllipse(int x, int y, int UpX, int UpY);
 	~CEllipse();
 	virtual void draw();
-	
 	virtual Figure* isInside(int x, int y);
 };

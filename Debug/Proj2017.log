@@ -1,14 +1,24 @@
-﻿  Frame.cpp
-c:\users\user\desktop\proj\drawingpenelwindowcpp\frame.cpp(97): warning C4244: 'argument': conversion from 'long' to 'char', possible loss of data
-  Canvas.cpp
+﻿  CEllipse.cpp
+c:\users\user\desktop\proj\drawingpenelwindowcpp\cellipse.cpp(30): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
   Generating Code...
-  Skipping... (no relevant changes detected)
+  Compiling...
   Window.cpp
+  MyFrame.cpp
   Menuitem.cpp
   Menubar.cpp
   Menu.cpp
+  Frame.cpp
+c:\users\user\desktop\proj\drawingpenelwindowcpp\frame.cpp(111): warning C4244: 'argument': conversion from 'long' to 'char', possible loss of data
+  Figure.cpp
   Controller.cpp
+c:\users\user\desktop\proj\drawingpenelwindowcpp\controller.cpp(141): warning C4101: 'hdc': unreferenced local variable
   Container.cpp
-  MyFrame.cpp
+  Canvas.cpp
+  CRectangle.cpp
+c:\users\user\desktop\proj\drawingpenelwindowcpp\crectangle.cpp(32): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+  CLine.cpp
+c:\users\user\desktop\proj\drawingpenelwindowcpp\cline.cpp(34): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+c:\users\user\desktop\proj\drawingpenelwindowcpp\cline.cpp(39): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+  Generating Code...
   Proj2017.vcxproj -> C:\Users\user\Desktop\proj\drawingpenelWindowcpp\Debug\Proj2017.exe
   Proj2017.vcxproj -> C:\Users\user\Desktop\proj\drawingpenelWindowcpp\Debug\Proj2017.pdb (Full PDB)

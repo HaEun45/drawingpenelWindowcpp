@@ -15,12 +15,13 @@ CEllipse::~CEllipse()
 {
 }
 
-//그림을 그려주는 함수
+//타원을 그려주는 함수
 void CEllipse::draw() {
 	m_fframe->setPen(m_color, 1);
 	m_fframe->ellipse(m_clickDownX, m_clickDownY, m_clickUpX, m_clickUpY); //x,y는 클릭한 점
 }
 
+//그림을 그릴 때 범위를 정해주는 함수
 Figure* CEllipse::isInside(int x, int y) {
 	if (m_clickUpX < 0 && m_clickUpY > 0) {  //클릭업된 점의 x좌표가 -라면
 		m_clickUpX = abs(m_clickUpX); //절댓값을 취해주면 isInside에서 처리가 된다.

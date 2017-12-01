@@ -15,10 +15,10 @@ void MyFrame::onInitialize(){
 	// *** 모든 윈도들을 여기에서 초기화하자.
 	addMenuBar(new MenuBar());
 	addCanvas(new Canvas());
-
 	// menuFile 등등은 멤버 변수로 했다. 나중에  event source를 파악해야하니까.
 	m_menubar->addMenu(menuFigure = new Menu("도형"));
 	m_menubar->addMenu(menuColor = new Menu("색"));
+	m_menubar->addMenu(menuEdit = new Menu("편집"));
 
 	menuFigure->addMenuItem(miRectangle = new MenuItem("사각형"));
 	menuFigure->addMenuItem(miEllipse = new MenuItem("타원"));
@@ -27,6 +27,8 @@ void MyFrame::onInitialize(){
 	menuColor->addMenuItem(miBlack = new MenuItem("검은색"));
 	menuColor->addMenuItem(miRed = new MenuItem("빨간색"));
 	menuColor->addMenuItem(miBlue = new MenuItem("파란색"));
+
+	menuEdit->addMenuItem(miMove = new MenuItem("이동"));
 
 }
 //메뉴 아이템은 자신의 주소를 전달해주어야 MyFrame이 무슨 행동을 할 지 결정할 수 있다.
@@ -56,5 +58,9 @@ void MyFrame::processEvent(Window * src) {
 	else if (src == miBlue) {
 		OutputDebugString("메뉴아이템 파란색을 클릭");
 		m_canvas->setColor(RGB(0, 0, 255));
+	}
+	else if (src == miMove) {
+		OutputDebugString("메뉴아이템 이동을 클릭");
+		m_canvas->setFigureType(3);
 	}
 }

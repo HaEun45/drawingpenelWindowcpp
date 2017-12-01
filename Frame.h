@@ -36,7 +36,6 @@ public:
 	void line(int x, int y, int sizeX, int sizeY);
 	void drawText(std::string str, int x, int y);
 	void display();
-	//void eraseAll();
 	void invalidate(); //화면을 엎고 다시 display를 한다.
 	virtual void onInitialize(); //가상함수로 한다.
 	virtual void processEvent(Window * src)=0; //가상함수로 만든다.
